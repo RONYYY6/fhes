@@ -38,7 +38,7 @@ function Unit(type, xPos = 10, yPos = 10) {
 
     this.isPlayer = type.isPlayer;
     this.unitClass = type.unitClass;
-    this.hp = 100;
+    this.e = 100;
     this.attcackPower = type.attcackPower;
     this.defensePower = type.defensePower;
     this.additionalDefense = 0;
@@ -92,14 +92,14 @@ Unit.prototype.attack = function(enemy) {
     // Attack enemy
     this.startAnimation("attack");
     enemy.startAnimation("blink");
-    enemy.hp -= +hitValue.toFixed(2);
-    enemy.hp = enemy.hp.toFixed(1);
-    enemy.showMessage("-" + hitValue.toFixed(2) + " HP", "hit", settings.gameSpeed);
+    enemy.e -= +hitValue.toFixed(2);
+    enemy.e = enemy.hp.toFixed(1);
+    enemy.showMessage("-" + hitValue.toFixed(2) + "E", "hit", settings.gameSpeed);
 
-    console.log('enemy.hp:', enemy.hp);
+    console.log('enemy.hp:', enemy.e);
 
-    // Kill enemy if HP < 0
-    if (enemy.hp <= 0) {
+    // Kill enemy if E < 0
+    if (enemy.e <= 0) {
         enemy.setState("dead");
         console.log(enemy.unitClass + " killed by " + this.unitClass);
         enemy.updateHP();
@@ -122,10 +122,10 @@ Unit.prototype.shield = function() {
 
 // Обновление информации о жизнях персонажей
 
-Unit.prototype.updateHP = function() {
+Unit.prototype.updateE = function() {
     // Находим элемент полоски жизней
-    var hpBar = this.htmlReference.querySelector(".hpBar");
-    var HP = this.hp;
+    var eBar = this.htmlReference.querySelector(".eBar");
+    var E = this.e;
 
     // Обновляем информацию
     hpBar.innerHTML = "HP: " + HP;
